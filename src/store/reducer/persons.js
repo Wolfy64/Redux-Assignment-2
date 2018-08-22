@@ -1,35 +1,29 @@
-import * as actionType from '../actions'
+import * as actionType from '../actions';
 
 const initialState = {
   persons: []
-}
+};
 
-const reducer = ( state = initialState, action ) => {
-  console.log('​reducer -> action', action);
-  console.log('actionType.ADD', actionType.ADD);
-
-  console.log('state',state)
-  
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD:
-      console.log('hello')
       const newPerson = {
         id: Math.random(), // not really unique but good enough here!
-        name: 'Max',
-        age: Math.floor( Math.random() * 40 )
-      }
+        name: action.personData.name,
+        age: action.personData.age
+      };
       return {
         ...state,
         persons: state.persons.concat(newPerson)
-      }
+      };
     case actionType.DELETE:
-        return{
-          ...state,
-          persons: state.persons.filter(person => person.id !== action.personId)
-        }
+      return {
+        ...state,
+        persons: state.persons.filter(person => person.id !== action.personId)
+      };
     default:
-    return state;
+      return state;
   }
-}
+};
 
 export default reducer;
